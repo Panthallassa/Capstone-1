@@ -1,0 +1,17 @@
+{% extends 'base.html' %} {% block title %}Vehicles{%
+endblock %} {% block content %}
+<div class="container mt-5">
+	<h1 class="list-title">Vehicles</h1>
+	<ul class="list-group">
+		{% for vehicle in vehicles %}
+		<li class="individual-list-item">
+			<a
+				class="list-item"
+				href="{{ url_for('vehicle_detail', vehicle_id=vehicle.id) }}"
+				>{{ vehicle.name }}</a
+			>
+		</li>
+		{% endfor %}
+	</ul>
+</div>
+{% endblock %}

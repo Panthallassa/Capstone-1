@@ -1,0 +1,174 @@
+{% extends 'base.html' %} {% block title %}{{ person.name
+}}{% endblock %} {% block content %}
+<div class="container mt-4 content-container">
+	<h5 class="title">{{ person.name }}</h5>
+
+	<ul class="list-group list-group-flush">
+		<li class="info-text">
+			<strong class="info-line">Birth Year:</strong> {{
+			person.birth_year }}
+		</li>
+		<li class="info-text">
+			<strong class="info-line">Eye Color:</strong> {{
+			person.eye_color }}
+		</li>
+		<li class="info-text">
+			<strong class="info-line">Gender:</strong> {{
+			person.gender }}
+		</li>
+		<li class="info-text">
+			<strong class="info-line">Hair Color:</strong> {{
+			person.hair_color }}
+		</li>
+		<li class="info-text">
+			<strong class="info-line">Height:</strong> {{
+			person.height }}cm
+		</li>
+		<li class="info-text">
+			<strong class="info-line">Mass:</strong> {{
+			person.mass }}kg
+		</li>
+		<li class="info-text">
+			<strong class="info-line">Skin Color:</strong> {{
+			person.skin_color }}
+		</li>
+		{% if person.homeworld %}
+		<li class="info-text">
+			<strong class="info-line">Homeworld:</strong>
+			<a
+				class="hide-url-styling"
+				href="{{ url_for('planet_detail', planet_id=person.homeworld.id) }}"
+				>{{ person.homeworld.name }}</a
+			>
+		</li>
+		{% endif %}
+	</ul>
+
+	<div>
+		<p class="detail-list-title">Films:</p>
+		<ul class="list-group">
+			{% for film in person.films %}
+			<li>
+				<a
+					class="list-item"
+					href="{{ url_for('film_detail', film_id=film.id) }}"
+					>{{ film.title }}</a
+				>
+			</li>
+			{% endfor %}
+		</ul>
+
+		{% if person.species %}
+		<p class="detail-list-title">Species:</p>
+		<ul class="list-group">
+			{% for species in person.species %}
+			<li>
+				<a
+					class="list-item"
+					href=" {{ url_for('species_detail', species_id=species.id) }}"
+					>{{ species.name }}</a
+				>
+			</li>
+			{% endfor %}
+		</ul>
+		{% endif %} {% if person.starships %}
+
+		<p class="detail-list-title">Starships:</p>
+		<ul class="list-group">
+			{% for starship in person.starships %}
+			<li>
+				<a
+					class="list-item"
+					href="{{ url_for('starship_detail', starship_id=starship.id) }}"
+					>{{ starship.name }}</a
+				>
+			</li>
+			{% endfor %} {% endif %} {% if person.vehicles %}
+			<p class="detail-list-title">Vehicles:</p>
+			<ul class="list-group">
+				{% for vehicle in person.vehicles %}
+				<li>
+					<a
+						class="list-item"
+						href="{{ url_for('vehicle_detail', vehicle_id=vehicle.id) }}"
+						>{{ vehicle.name }}</a
+					>
+				</li>
+				{% endfor %}
+			</ul>
+			{% endif %}
+		</ul>
+	</div>
+	{% if g.user %}
+	<hr class="break" />
+	<div class="comment-form-container">
+		<form
+			method="POST"
+			action="{{ url_for('person_detail', person_id=person.id) }}"
+		>
+			{{ form.hidden_tag() }}
+			<div class="mb-3">
+				{{ form.text.label(class="form-label
+				comment-form-label") }} {{
+				form.text(class="comment-input") }}
+			</div>
+			<div class="mb-3">
+				{{ form.submit(class="submit-form-btn" ) }}
+			</div>
+		</form>
+	</div>
+	{% endif %} {% if person.comments %}
+	<div class="comment-container">
+		<div class="row row-cols-1 row-cols-md-3 g-4">
+			{% for comment in person.comments %}
+			<div class="col comment-item">
+				<div class="card h-100 comment-card-body">
+					<div class="card-body">
+						<div class="comment-content">
+							<div class="vote-container">
+								<form
+									action="{{ url_for('vote_comment', comment_id=comment.id) }}"
+									method="POST"
+									class="vote-form"
+								>
+									<button
+										name="vote"
+										value="up"
+										type="submit"
+										class="vote-button"
+									>
+										<i
+											class="fa-solid fa-sort-up arrow"
+										></i>
+									</button>
+									<button
+										name="vote"
+										value="down"
+										type="submit"
+										class="vote-button"
+									>
+										<i
+											class="fa-solid fa-sort-down arrow"
+										></i>
+									</button>
+								</form>
+							</div>
+
+							<div class="comment-text-container">
+								<h5 class="card-title comment-username">
+									{{ comment.user.username }}:
+								</h5>
+								<p class="card-text comment-text">
+									{{ comment.text }}
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+	{% endif %}
+</div>
+{% endblock %}

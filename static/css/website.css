@@ -1,0 +1,213 @@
+/* Styling for the navbar and home website page */
+
+@font-face {
+	font-family: "Star Jedi";
+	src: url("fonts/star_jedi/starjedi/Starjedi.ttf")
+		format("truetype");
+}
+
+@font-face {
+	font-family: "Star Jedi Hollow";
+	src: url("fonts/star_jedi/starjedi/Starjhol.ttf")
+		format("truetype");
+}
+
+body {
+	background-image: url("pexels-umutdagli-13402171.jpg");
+	background-size: cover;
+}
+
+#navbar {
+	color: #182e59;
+}
+
+#navbar-container {
+	color: #182e59;
+	position: fixed;
+	padding: 5px;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 1000;
+	background-color: #182e59;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#navbar-brand {
+	font-family: "Audiowide";
+	font-weight: 700;
+	color: #d7bf78;
+}
+
+#navbar-toggler {
+	border-style: none;
+	color: #d7bf78;
+}
+
+#navbar-toggler-icon {
+	background-image: url('data:image/svg+xml;charset=utf8,<svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"><path stroke="rgba(215, 191, 120, 1)" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M4 7h22M4 15h22M4 23h22"/></svg>');
+}
+
+.nav-item {
+	font-family: "Orbitron";
+	font-size: 15px;
+}
+
+#login-link,
+#signup-link,
+#logout-link,
+#profile-link {
+	color: #d7bf78;
+}
+
+.nav-link {
+	color: #d7bf78;
+}
+
+/* Search function styles  */
+
+#search-container {
+	margin-left: -10px;
+}
+
+#search-form {
+	position: relative;
+}
+
+#search-input {
+	width: 0;
+	opacity: 0;
+	margin-left: 10px;
+	transition: width 0.5s ease, opacity 0.5s ease;
+	color: #abbbc2;
+	font-family: "Audiowide";
+	background-color: transparent;
+	border: none;
+}
+
+#search-input::placeholder {
+	color: #d7bf78;
+	opacity: 1;
+}
+
+#search-form.active #search-input {
+	width: 150px;
+	opacity: 1;
+}
+
+#search-button {
+	color: #d7bf78;
+	font-family: "Audiowide";
+	margin: 7px 10px;
+	font-size: 10px;
+	padding: 1px 5px;
+	background-color: transparent;
+	border: 1px solid #d7bf78;
+	border-radius: 6px;
+	transition: background-color 0.3s ease;
+}
+
+#search-button:hover {
+	background-color: #a2a332;
+	color: #fafbc1;
+}
+
+.dropdown-menu {
+	width: 100%;
+	max-height: 200px;
+	overflow-y: auto;
+	background-color: rgba(0, 0, 0, 0.5);
+	border-style: none;
+}
+
+.dropdown-item {
+	background-color: transparent;
+}
+
+.dropdown-list-item {
+	color: #88adbd;
+	font-family: "Audiowide";
+	text-decoration: none;
+}
+
+.dropdown-list-item:hover {
+	text-decoration: underline;
+}
+
+.dropdown-item:hover {
+	background-color: transparent;
+}
+
+#home-heading {
+	font-family: "Star Jedi Hollow";
+	color: #d7bf78;
+	font-size: 60px;
+	margin-bottom: 60px;
+}
+
+#login-link:hover {
+	text-decoration: underline;
+}
+
+#logout-link:hover {
+	text-decoration: underline;
+}
+
+#profile-link:hover {
+	text-decoration: underline;
+}
+
+#signup-link:hover {
+	text-decoration: underline;
+}
+
+/* Home page styling */
+
+.home-link-container {
+	padding: 0 20px;
+}
+
+.category-links {
+	position: relative;
+	z-index: 1;
+	font-size: 30px;
+	font-family: "Orbitron";
+	color: #abbbc2;
+	text-decoration: none;
+	transition: font-size 0.5s ease;
+}
+
+.glow-container {
+	position: relative;
+	display: inline-block;
+	padding: 20px;
+}
+
+.glow-container::before {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 90%;
+	height: 90%;
+	background: radial-gradient(
+		circle,
+		rgba(255, 255, 255, 0.5) 10%,
+		rgba(255, 255, 255, 0) 35%
+	);
+	border-radius: 50%;
+	transform: translate(-50%, -50%);
+	z-index: -1;
+	opacity: 0;
+	transition: opacity 0.5s ease, transform 0.5 ease;
+}
+
+.glow-container:hover::before {
+	opacity: 1;
+	transform: translate(-50%, -50%) scale(1.5);
+}
+
+.glow-container:hover .category-links {
+	font-size: 40px;
+	color: #88adbd;
+}

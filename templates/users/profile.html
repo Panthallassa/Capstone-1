@@ -1,0 +1,106 @@
+{% extends 'base.html' %} {% block title %} {{ user.username
+}}{% endblock %} {% block content %}
+<div class="container text-center mt-5">
+	<hr />
+	<h1 class="title">{{ user.username }}'s Profile</h1>
+	<p class="user-subheading">
+		Email:
+		<span class="light-writing">{{ user.email }}</span>
+	</p>
+	<a
+		href="{{ url_for('edit_user', user_id=user.id) }}"
+		class="edit-profile-button"
+		>Edit Profile</a
+	>
+
+	<h2 class="detail-list-title">Comments:</h2>
+	<div class="comment-container">
+		<div class="row row-cols-1 row-cols-md-3 g-4">
+			{% for comment in
+			user.comments|sort(attribute='upvotes', reverse=True)
+			%}
+			<div class="col comment-item">
+				<div class="card h-100 comment-card-body">
+					<div class="card-body">
+						<div class="comment-content"></div>
+						<div class="comment-text-container">
+							<h5
+								class="card-title comment-username"
+								id="profile-comment-username"
+							>
+								{{ comment.user.username }}:
+							</h5>
+							<p
+								class="card-text comment-text"
+								id="profile-comment-text"
+							>
+								{{ comment.text }}
+							</p>
+							<span class="votes"
+								>Upvotes: {{ comment.upvotes }}</span
+							>
+							<span class="votes"
+								>Downvotes: {{ comment.downvotes }}</span
+							>
+							{% if comment.person_id %}
+							<a
+								class="comment-link"
+								href="{{ url_for('person_detail', person_id=comment.person_id) }}"
+								>View Person</a
+							>
+							{% elif comment.film_id %}
+							<a
+								class="comment-link"
+								href="{{ url_for('film_detail', film_id=comment.film_id) }}"
+								>View Film</a
+							>
+							{% elif comment.starship_id %}
+							<a
+								class="comment-link"
+								href="{{ url_for('starship_detail', starship_id=comment.starship_id) }}"
+								>View Starship</a
+							>
+							{% elif comment.vehicle_id %}
+							<a
+								class="comment-link"
+								href="{{ url_for('vehicle_detail', vehicle_id=comment.vehicle_id) }}"
+								>View Vehicle</a
+							>
+							{% elif comment.species_id %}
+							<a
+								class="comment-link"
+								href="{{ url_for('species_detail', species_id=comment.species_id) }}"
+								>View Species</a
+							>
+							{% elif comment.planet_id %}
+							<a
+								class="comment-link"
+								href="{{ url_for('planet_detail', planet_id=comment.planet_id) }}"
+								>View Planet</a
+							>
+							{% endif %} {% if g.user and comment.user_id
+							== g.user.id %}
+							<form
+								action="{{ url_for('delete_comment', comment_id=comment.id) }}"
+								method="POST"
+								style="display: inline"
+							>
+								<button
+									class="delete-comment"
+									type="submit"
+								>
+									<i
+										class="fa-regular fa-trash-can delete-icon"
+									></i>
+								</button>
+							</form>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+{% endblock %}

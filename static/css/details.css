@@ -1,0 +1,122 @@
+@font-face {
+	font-family: "Star Jedi";
+	src: url("fonts/star_jedi/starjedi/Starjedi.ttf")
+		format("truetype");
+}
+
+@font-face {
+	font-family: "Star Jedi Hollow";
+	src: url("fonts/star_jedi/starjedi/Starjhol.ttf")
+		format("truetype");
+}
+
+.opening-crawl {
+	font-family: "Star Jedi", sans-serif;
+	color: #d7bf78dc;
+	font-size: 22px;
+	line-height: 1.4;
+	padding-top: 20px;
+	overflow: hidden;
+	position: relative;
+	transform-origin: 50% 100%;
+	animation: crawl 3s linear forwards;
+}
+
+@keyframes crawl {
+	0% {
+		transform: translateY(-100%);
+	}
+	100% {
+		transform: translateY(0);
+	}
+}
+
+.content-container {
+	text-align: center;
+}
+
+.title {
+	font-family: "Star Jedi Hollow";
+	font-size: 50px;
+	color: #d7bf78;
+	padding-top: 30px;
+}
+
+/* film_detail specific  */
+
+.film-episode {
+	font-family: "Audiowide", sans-serif;
+	color: #348790;
+}
+
+.film-info {
+	text-align: center;
+	padding-top: 45px;
+}
+
+/*                       */
+
+.info-line {
+	font-family: "Audiowide", sans-serif;
+	font-size: 15px;
+	color: #348790;
+}
+
+.info-text {
+	font-family: "Orbitron";
+	color: #abbbc2;
+	font-size: 13px;
+}
+
+.detail-list-title {
+	font-family: "Star Jedi Hollow";
+	color: #d7bf78;
+	font-size: 30px;
+	padding-top: 30px;
+	padding-bottom: 20px;
+}
+
+.content-card {
+	text-align: center;
+}
+
+.card-row {
+	margin-bottom: 75px;
+}
+
+.hide-url-styling {
+	text-decoration: none;
+	color: inherit;
+	cursor: pointer;
+}
+
+.hide-url-styling:hover {
+	text-decoration: underline;
+	color: inherit;
+}
+
+.break {
+	border: solid 10px #58bbe9;
+	height: 5px; /* Adjust height as needed */
+	background: linear-gradient(
+		to right,
+		rgba(88, 187, 233, 0) 0%,
+		rgba(88, 187, 233, 0) calc(50% - 15px),
+		#58bbe9 50%,
+		rgba(88, 187, 233, 0) calc(50% + 15px),
+		rgba(88, 187, 233, 0) 100%
+	);
+	box-shadow: 0 0 15px #58bbe9,
+		/* Outer blue glow */ 0 0 30px #58bbe9,
+		/* Outer blue glow */ 0 0 45px #58bbe9,
+		/* Outer blue glow */ 0 0 60px #58bbe9,
+		/* Outer blue glow */ 0 0 75px #58bbe9,
+		/* Outer blue glow */ 0 0 90px #58bbe9,
+		/* Outer blue glow */ 0 0 105px #58bbe9,
+		/* Outer blue glow */ 0 0 120px rgba(255, 255, 255, 1),
+		/* Inner white glow */ 0 0 135px
+			rgba(255, 255, 255, 0.8),
+		/* Inner white glow */ 0 0 150px
+			rgba(255, 255, 255, 0.7); /* Inner white glow */
+	margin: 40px 20px;
+}

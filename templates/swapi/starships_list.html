@@ -1,0 +1,17 @@
+{% extends 'base.html' %} {% block title %}Starships{%
+endblock %} {% block content %}
+<div class="container mt-5">
+	<h1 class="list-title">Starships</h1>
+	<ul class="list-group">
+		{% for starship in starships %}
+		<li class="individual-list-item">
+			<a
+				class="list-item"
+				href="{{ url_for('starship_detail', starship_id=starship.id) }}"
+				>{{ starship.name }}</a
+			>
+		</li>
+		{% endfor %}
+	</ul>
+</div>
+{% endblock %}

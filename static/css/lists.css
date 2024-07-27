@@ -1,0 +1,36 @@
+@font-face {
+	font-family: "Star Jedi Hollow";
+	src: url("fonts/star_jedi/starjedi/Starjhol.ttf")
+		format("truetype");
+}
+
+.list-title {
+	font-family: "Star Jedi Hollow";
+	color: #d7bf78;
+	text-align: center;
+	font-size: 45px;
+	margin-bottom: 30px;
+}
+
+.list-group {
+	list-style-type: none;
+}
+
+.individual-list-item {
+	background: transparent;
+	text-align: center;
+	padding: 10px 0;
+}
+
+.list-item {
+	font-family: "Audiowide", sans-serif;
+	font-size: 20px;
+	font-weight: 400;
+	text-decoration: none;
+	color: #abbbc2;
+}
+
+.list-item:hover {
+	color: #d7bf78;
+	text-decoration: underline;
+}

@@ -1,0 +1,169 @@
+{% extends 'base.html' %} {% block title %} {{ starship.name
+}} {% endblock %} {% block content %}
+<div class="container text-center mt-4">
+	<h2 class="title">{{ starship.name }}</h2>
+
+	<div class="content-container">
+		<div>
+			<p class="info-text">
+				<strong class="info-line">Model:</strong> {{
+				starship.model }}
+			</p>
+			<p class="info-text">
+				<strong class="info-line">Starship Class:</strong>
+				{{ starship.starship_class }}
+			</p>
+			<p class="info-text">
+				<strong class="info-line">Manufacturer:</strong> {{
+				starship.manufacturer }}
+			</p>
+			<p class="info-text">
+				<strong class="info-line">Cost in Credits:</strong>
+				{{ starship.cost_in_credits }}
+			</p>
+			<p class="info-text">
+				<strong class="info-line">Length:</strong> {{
+				starship.length }} m
+			</p>
+			<p class="info-text">
+				<strong class="info-line">Crew:</strong> {{
+				starship.crew }}
+			</p>
+
+			<p class="info-text">
+				<strong class="info-line">Passengers:</strong> {{
+				starship.passengers }}
+			</p>
+			<p class="info-text">
+				<strong class="info-line"
+					>Max Atmosphering Speed:</strong
+				>
+				{{ starship.max_atmosphering_speed }}
+			</p>
+			<p class="info-text">
+				<strong class="info-line"
+					>Hyperdrive Rating:</strong
+				>
+				{{ starship.hyperdrive_rating }}
+			</p>
+			<p class="info-text">
+				<strong class="info-line">MGLT:</strong> {{
+				starship.MGLT }}
+			</p>
+			<p class="info-text">
+				<strong class="info-line">Cargo Capacity:</strong>
+				{{ starship.cargo_capacity }}
+			</p>
+			<p class="info-text">
+				<strong class="info-line">Consumables:</strong> {{
+				starship.consumables }}
+			</p>
+		</div>
+
+		{% if starship.pilots %}
+		<hr />
+		<div>
+			<p class="detail-list-title">Pilots:</p>
+			<ul class="list-group">
+				{% for pilot in starship.pilots %}
+				<li>
+					<a
+						class="list-item"
+						href="{{ url_for('person_detail', person_id=pilot.id) }}"
+						>{{ pilot.name }}</a
+					>
+				</li>
+				{% endfor %}
+			</ul>
+		</div>
+		{% endif %}
+		<hr />
+		<div>
+			<p class="detail-list-title">Films Appeared:</p>
+			<ul class="list-group">
+				{% for film in starship.films %}
+				<li>
+					<a
+						class="list-item"
+						href="{{ url_for('film_detail', film_id=film.id) }}"
+						>{{ film.title }}</a
+					>
+				</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+
+	{% if g.user %}
+	<hr class="break" />
+	<div class="comment-form-container">
+		<form
+			method="POST"
+			action="{{ url_for('starship_detail', starship_id=starship.id) }}"
+		>
+			{{ form.hidden_tag() }}
+			<div class="mb-3">
+				{{ form.text.label(class="form-label
+				comment-form-label") }} {{
+				form.text(class="comment-input") }}
+			</div>
+			<div class="mb-3">
+				{{ form.submit(class="submit-form-btn" ) }}
+			</div>
+		</form>
+	</div>
+	{% endif %} {% if starship.comments %}
+	<div class="comment-container">
+		<div class="row row-cols-1 row-cols-md-3 g-4">
+			{% for comment in starship.comments %}
+			<div class="col comment-item">
+				<div class="card h-100 comment-card-body">
+					<div class="card-body">
+						<div class="comment-content">
+							<div class="vote-container">
+								<form
+									action="{{ url_for('vote_comment', comment_id=comment.id) }}"
+									method="POST"
+									class="vote-form"
+								>
+									<button
+										name="vote"
+										value="up"
+										type="submit"
+										class="vote-button"
+									>
+										<i
+											class="fa-solid fa-sort-up arrow"
+										></i>
+									</button>
+									<button
+										name="vote"
+										value="down"
+										type="submit"
+										class="vote-button"
+									>
+										<i
+											class="fa-solid fa-sort-down arrow"
+										></i>
+									</button>
+								</form>
+							</div>
+
+							<div class="comment-text-container">
+								<h5 class="card-title comment-username">
+									{{ comment.user.username }}:
+								</h5>
+								<p class="card-text comment-text">
+									{{ comment.text }}
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+	{% endif %}
+</div>
+{% endblock %}

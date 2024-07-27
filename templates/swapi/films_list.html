@@ -1,0 +1,17 @@
+{% extends 'base.html' %} {% block title %}Films{% endblock
+%} {% block content %}
+<div class="container mt-5">
+	<h1 class="list-title">Films</h1>
+	<ul class="list-group">
+		{% for film in films %}
+		<li class="individual-list-item">
+			<a
+				class="list-item"
+				href="{{ url_for('film_detail', film_id=film.id) }}"
+				>{{ film.title }}</a
+			>
+		</li>
+		{% endfor %}
+	</ul>
+</div>
+{% endblock %}

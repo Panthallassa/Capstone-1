@@ -1,0 +1,17 @@
+{% extends 'base.html' %} {% block title %}Planets{%
+endblock %} {% block content %}
+<div class="container mt-5">
+	<h1 class="list-title">Planets</h1>
+	<ul class="list-group">
+		{% for planet in planets %}
+		<li class="individual-list-item">
+			<a
+				class="list-item"
+				href="{{ url_for('planet_detail', planet_id=planet.id) }}"
+				>{{ planet.name }}</a
+			>
+		</li>
+		{% endfor %}
+	</ul>
+</div>
+{% endblock %}

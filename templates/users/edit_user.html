@@ -1,0 +1,55 @@
+{% extends 'base.html' %} {% block title %}Edit {{
+user.username }}{% endblock %} {% block content %}
+<div class="container text-center mt-5">
+	<h1 class="title">
+		Edit Profile for {{ user.username }}
+	</h1>
+	<hr />
+	<form
+		method="POST"
+		action="{{ url_for('edit_user', user_id=user.id) }}"
+	>
+		{{ form.hidden_tag() }}
+
+		<div class="mb-3">
+			{{ form.username.label(class="form-label label-style")
+			}} {{ form.username(class="form-control form-style")
+			}}
+		</div>
+
+		<div class="mb-3">
+			{{ form.email.label(class="form-label label-style") }}
+			{{ form.email(class="form-control form-style") }}
+		</div>
+
+		<div class="mb-3">
+			{{ form.password.label(class="form-label label-style")
+			}} {{ form.password(class="form-control form-style")
+			}}
+		</div>
+
+		<div class="mb-3">
+			{{ form.new_password.label(class="form-label
+			label-style") }} {{
+			form.new_password(class="form-control form-style") }}
+		</div>
+
+		<div class="mb-3">
+			{{ form.submit(class="btn btn-primary") }}
+		</div>
+	</form>
+
+	<form
+		method="POST"
+		action="{{ url_for('delete_user', user_id=user.id) }}"
+	>
+		<button
+			type="submit"
+			class="btn btn-danger"
+			onclick="return confirm('Are you sure you want to delete your account?')"
+		>
+			Delete Account
+		</button>
+	</form>
+</div>
+{% endblock %}

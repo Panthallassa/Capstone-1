@@ -1,0 +1,137 @@
+{% extends 'base.html' %} {% block title %} {{ film.title }}
+{% endblock %} {% block content %}
+<link
+	rel="stylesheet"
+	href="{{ url_for('static', filename='css/details.css') }}"
+/>
+<div class="container mt-4">
+	<div class="content-card">
+		<div class="card-body">
+			<div class="row card-row">
+				<div class="col-12 text-center opening-crawl">
+					<p>{{ film.opening_crawl }}</p>
+				</div>
+				<h2 class="title">{{ film.title }}</h2>
+				<h5 class="film-episode">
+					Episode {{ film.episode_id }}
+				</h5>
+				<div class="film-info">
+					<p class="info-text">
+						<strong class="info-line">Director:</strong>
+						{{ film.director }}
+					</p>
+					<p class="info-text">
+						<strong class="info-line">Producer:</strong>
+						{{ film.producer }}
+					</p>
+					{% if film.release_date.strftime %}
+					<p class="info-text">
+						<strong class="info-line">Release Date:</strong>
+						{{ film.release_date.strftime('%B %d, %Y') }}
+					</p>
+					{% endif %}
+				</div>
+
+				<p class="detail-list-title">Characters:</p>
+				<ul>
+					{% for character in film.characters %}
+					<li>
+						<a
+							class="list-item"
+							href="{{ url_for('person_detail', person_id=character.id) }}"
+							>{{ character.name }}</a
+						>
+					</li>
+					{% endfor %}
+				</ul>
+				<p class="detail-list-title">Planets:</p>
+				<ul>
+					{% for planet in film.planets %}
+					<li>
+						<a
+							class="list-item"
+							href="{{ url_for('planet_detail', planet_id=planet.id) }}"
+							>{{ planet.name }}</a
+						>
+					</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+
+		{% if g.user %}
+		<hr class="break" />
+		<div class="comment-form-container">
+			<form
+				method="POST"
+				action="{{ url_for('film_detail', film_id=film.id) }}"
+			>
+				{{ form.hidden_tag() }}
+				<div class="mb-3">
+					{{ form.text.label(class="form-label
+					comment-form-label") }} {{
+					form.text(class="comment-input") }}
+				</div>
+				<div class="mb-3">
+					{{ form.submit(class="submit-form-btn" ) }}
+				</div>
+			</form>
+		</div>
+		{% endif %}
+	</div>
+
+	{% if film.comments %}
+	<div class="comment-container">
+		<div class="row row-cols-1 row-cols-md-3 g-4">
+			{% for comment in film.comments %}
+			<div class="col comment-item">
+				<div class="card h-100 comment-card-body spacing">
+					<div class="card-body">
+						<div class="comment-content">
+							<div class="vote-container">
+								<form
+									action="{{ url_for('vote_comment', comment_id=comment.id) }}"
+									method="POST"
+									class="vote-form"
+								>
+									<button
+										name="vote"
+										value="up"
+										type="submit"
+										class="vote-button"
+									>
+										<i
+											class="fa-solid fa-sort-up arrow"
+										></i>
+									</button>
+									<button
+										name="vote"
+										value="down"
+										type="submit"
+										class="vote-button"
+									>
+										<i
+											class="fa-solid fa-sort-down arrow"
+										></i>
+									</button>
+								</form>
+							</div>
+
+							<div class="comment-text-container">
+								<h5 class="card-title comment-username">
+									{{ comment.user.username }}:
+								</h5>
+								<p class="card-text comment-text">
+									{{ comment.text }}
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+	{% endif %}
+</div>
+{% endblock %}

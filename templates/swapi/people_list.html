@@ -1,0 +1,17 @@
+{% extends 'base.html' %} {% block title %}Characters{%
+endblock %} {% block content %}
+<div class="container mt-5">
+	<h1 class="list-title">Characters</h1>
+	<ul class="list-group">
+		{% for person in people %}
+		<li class="individual-list-item">
+			<a
+				class="list-item"
+				href="{{ url_for('person_detail', person_id=person.id) }}"
+				>{{ person.name }}</a
+			>
+		</li>
+		{% endfor %}
+	</ul>
+</div>
+{% endblock %}

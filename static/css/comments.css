@@ -1,0 +1,120 @@
+.comment-container {
+	padding: 20px;
+	margin-top: 50px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 20px;
+}
+
+.comment-form-container {
+	display: flex;
+	justify-content: center;
+	margin-top: 100px;
+}
+
+.comment-input {
+	width: 100%;
+	margin: 0 auto;
+	text-align: center;
+	background-color: rgba(215, 191, 120, 0.1);
+	border: 1px solid #abbbc2;
+	border-radius: 3px;
+	color: #abbbc2;
+	display: block;
+}
+
+.comment-form-label {
+	font-family: "Orbitron";
+	color: #d7bf78;
+}
+
+.spacing {
+	justify-content: center;
+}
+
+.submit-form-btn {
+	border-style: none;
+	border-radius: 3px;
+	color: #266369;
+	font-family: "Orbitron";
+	font-size: 13px;
+	padding: 5px;
+	background-color: #abbbc2;
+}
+
+.comment-list {
+	list-style-type: none;
+	padding: 10px;
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+	margin: 0 auto;
+}
+
+.comment-item {
+	flex: 1 1 100px;
+	max-width: 200px;
+	margin-bottom: 15px;
+	display: flex;
+
+	align-items: center;
+}
+
+.comment-card-body {
+	background-color: transparent;
+}
+
+.comment-username {
+	font-weight: bold;
+	font-family: "Star Jedi";
+	color: #d7bf78;
+	text-align: left;
+	margin-top: -18px;
+	margin-left: 10px;
+}
+
+.comment-text {
+	display: inline-block;
+	text-align: left;
+	font-family: "Orbitron";
+	color: rgb(139, 235, 235);
+	margin: 10px;
+}
+
+.vote-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: left;
+	margin-top: 20px;
+}
+
+.vote-form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.vote-button {
+	background: transparent;
+	border: none;
+	color: #9f5a60;
+	cursor: pointer;
+	font-size: 20px;
+	margin: -10px;
+	display: block;
+}
+
+.comment-content {
+	display: flex;
+	align-items: center;
+}
+
+.comment-text-container {
+	display: flex;
+	flex-direction: column;
+	margin-left: 10px;
+}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %} {% block title %}Species{%
+endblock %} {% block content %}
+<div class="container mt-5">
+	<h1 class="list-title">Species</h1>
+	<ul class="list-group">
+		{% for species in species %}
+		<li class="individual-list-item">
+			<a
+				class="list-item"
+				href="{{ url_for('species_detail', species_id=species.id) }}"
+				>{{ species.name }}</a
+			>
+		</li>
+		{% endfor %}
+	</ul>
+</div>
+{% endblock %}

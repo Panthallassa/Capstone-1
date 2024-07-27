@@ -1,0 +1,157 @@
+{% extends 'base.html' %} {% block title %} {{ vehicle.name
+}} {% endblock %} {% block content %}
+<div class="container text-center mt-4">
+	<h2 class="title">{{ vehicle.name }}</h2>
+
+	<div class="content-container">
+		<div>
+			<p class="info-text">
+				<strong class="info-line">Model:</strong> {{
+				vehicle.model }}
+			</p>
+			<p class="info-text">
+				<strong class="info-line">Vehicle Class:</strong>
+				{{ vehicle.vehicle_class }}
+			</p>
+			<p class="info-text">
+				<strong class="info-line">Manufacturer:</strong> {{
+				vehicle.manufacturer }}
+			</p>
+			<p class="info-text">
+				<strong class="info-line">Length:</strong> {{
+				vehicle.length }}
+			</p>
+			<p class="info-text">
+				<strong class="info-line">Cost in Credits:</strong>
+				{{ vehicle.cost_in_credits }}
+			</p>
+
+			<p class="info-text">
+				<strong class="info-line">Crew:</strong> {{
+				vehicle.crew }}
+			</p>
+			<p class="info-text">
+				<strong class="info-line">Passengers:</strong> {{
+				vehicle.passengers }}
+			</p>
+			<p class="info-text">
+				<strong class="info-line"
+					>Max Atmosphering Speed:</strong
+				>
+				{{ vehicle.max_atmosphering_speed }}
+			</p>
+			<p class="info-text">
+				<strong class="info-line">Cargo Capacity:</strong>
+				{{ vehicle.cargo_capacity }}
+			</p>
+			<p class="info-text">
+				<strong class="info-line">Consumables:</strong> {{
+				vehicle.consumables }}
+			</p>
+		</div>
+	</div>
+	{% if vehicle.pilots %}
+	<hr />
+	<div>
+		<p class="detail-list-title">Pilots:</p>
+		<ul class="list-group">
+			{% for pilot in vehicle.pilots %}
+			<li>
+				<a
+					class="list-item"
+					href="{{ url_for('person_detail', person_id=pilot.id) }}"
+					>{{ pilot.name }}</a
+				>
+			</li>
+			{% endfor %}
+		</ul>
+	</div>
+	{% endif %}
+	<hr />
+	<div>
+		<p class="detail-list-title">Films Appeared In:</p>
+		<ul class="list-group">
+			{% for film in vehicle.films %}
+			<li>
+				<a
+					class="list-item"
+					href="{{ url_for('film_detail', film_id=film.id) }}"
+					>{{ film.title }}</a
+				>
+			</li>
+			{% endfor %}
+		</ul>
+	</div>
+
+	{% if g.user %}
+	<hr class="break" />
+	<div class="comment-form-container">
+		<form
+			method="POST"
+			action="{{ url_for('vehicle_detail', vehicle_id=vehicle.id) }}"
+		>
+			{{ form.hidden_tag() }}
+			<div class="mb-3">
+				{{ form.text.label(class="form-label
+				comment-form-label") }} {{
+				form.text(class="comment-input") }}
+			</div>
+			<div class="mb-3">
+				{{ form.submit(class="submit-form-btn" ) }}
+			</div>
+		</form>
+	</div>
+	{% endif %} {% if vehicle.comments %}
+	<div class="comment-container">
+		<div class="row row-cols-1 row-cols-md-3 g-4">
+			{% for comment in vehicle.comments %}
+			<div class="col comment-item">
+				<div class="card h-100 comment-card-body">
+					<div class="card-body">
+						<div class="comment-content">
+							<div class="vote-container">
+								<form
+									action="{{ url_for('vote_comment', comment_id=comment.id) }}"
+									method="POST"
+									class="vote-form"
+								>
+									<button
+										name="vote"
+										value="up"
+										type="submit"
+										class="vote-button"
+									>
+										<i
+											class="fa-solid fa-sort-up arrow"
+										></i>
+									</button>
+									<button
+										name="vote"
+										value="down"
+										type="submit"
+										class="vote-button"
+									>
+										<i
+											class="fa-solid fa-sort-down arrow"
+										></i>
+									</button>
+								</form>
+							</div>
+
+							<div class="comment-text-container">
+								<h5 class="card-title comment-username">
+									{{ comment.user.username }}:
+								</h5>
+								<p class="card-text comment-text">
+									{{ comment.text }}
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+{% endif %} {% endblock %}

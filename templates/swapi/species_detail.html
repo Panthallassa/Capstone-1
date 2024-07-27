@@ -1,0 +1,161 @@
+{% extends 'base.html' %} {% block title %} {{ species.name
+}} {% endblock %} {% block content %}
+<div class="container text-center mt-4">
+	<h2 class="title">{{ species.name }}</h2>
+
+	<div class="content-container">
+		<div>
+			<p class="info-text">
+				<strong class="info-line">Classification:</strong>
+				{{ species.classification }}
+			</p>
+			<p class="info-text">
+				<strong class="info-line">Designation:</strong> {{
+				species.designation }}
+			</p>
+			<p class="info-text">
+				<strong class="info-line">Average Height:</strong>
+				{{ species.average_height }} cm
+			</p>
+			<p class="info-text">
+				<strong class="info-line">Average Lifespan:</strong>
+				{{ species.average_lifespan }} years
+			</p>
+
+			<p class="info-text">
+				<strong class="info-line">Eye Colors:</strong> {{
+				species.eye_colors }}
+			</p>
+			<p class="info-text">
+				<strong class="info-line">Hair Colors:</strong> {{
+				species.hair_colors }}
+			</p>
+			<p class="info-text">
+				<strong class="info-line">Skin Colors:</strong> {{
+				species.skin_colors }}
+			</p>
+			<p class="info-text">
+				<strong class="info-line">Language:</strong> {{
+				species.language }}
+			</p>
+			{% if species.homeworld %}
+			<p class="info-text">
+				<strong class="info-line">Homeworld:</strong>
+				<a
+					class="hide-url-styling"
+					href="{{ url_for('planet_detail', planet_id=species.homeworld.id) }}"
+					>{{ species.homeworld.name }}</a
+				>
+			</p>
+			{% endif %}
+		</div>
+
+		<hr />
+		<div>
+			<p class="detail-list-title">Films Appeared:</p>
+			<ul class="list-group">
+				{% for film in species.films %}
+				<li>
+					<a
+						class="list-item"
+						href="{{ url_for('film_detail', film_id=film.id) }}"
+						>{{ film.title }}</a
+					>
+				</li>
+				{% endfor %}
+			</ul>
+		</div>
+		{% if species.people %}
+		<hr />
+		<div>
+			<p class="detail-list-title">
+				People of this Species:
+			</p>
+			<ul class="list-group">
+				{% for person in species.people %}
+				<li>
+					<a
+						class="list-item"
+						href="{{ url_for('person_detail', person_id=person.id) }}"
+						>{{ person.name }}</a
+					>
+				</li>
+				{% endfor %}
+			</ul>
+		</div>
+		{% endif %}
+	</div>
+
+	{% if g.user %}
+	<hr class="break" />
+	<div class="comment-form-container">
+		<form
+			method="POST"
+			action="{{ url_for('species_detail', species_id=species.id) }}"
+		>
+			{{ form.hidden_tag() }}
+			<div class="mb-3">
+				{{ form.text.label(class="form-label
+				comment-form-label") }} {{
+				form.text(class="comment-input") }}
+			</div>
+			<div class="mb-3">
+				{{ form.submit(class="submit-form-btn" ) }}
+			</div>
+		</form>
+	</div>
+	{% endif %} {% if species.comments %}
+	<div class="comment-container">
+		<div class="row row-cols-1 row-cols-md-3 g-4">
+			{% for comment in species.comments %}
+			<div class="col comment-item">
+				<div class="card h-100 comment-card-body">
+					<div class="card-body">
+						<div class="comment-content">
+							<div class="vote-container">
+								<form
+									action="{{ url_for('vote_comment', comment_id=comment.id) }}"
+									method="POST"
+									class="vote-form"
+								>
+									<button
+										name="vote"
+										value="up"
+										type="submit"
+										class="vote-button"
+									>
+										<i
+											class="fa-solid fa-sort-up arrow"
+										></i>
+									</button>
+									<button
+										name="vote"
+										value="down"
+										type="submit"
+										class="vote-button"
+									>
+										<i
+											class="fa-solid fa-sort-down arrow"
+										></i>
+									</button>
+								</form>
+							</div>
+
+							<div class="comment-text-container">
+								<h5 class="card-title comment-username">
+									{{ comment.user.username }}:
+								</h5>
+								<p class="card-text comment-text">
+									{{ comment.text }}
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+	{% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,149 @@
+{% extends 'base.html' %} {% block title %} {{ planet.name
+}} {% endblock %} {% block content %}
+<div class="container text-center mt-4">
+	<h2 class="title">{{ planet.name }}</h2>
+
+	<div class="content-container">
+		<div>
+			<p class="info-text">
+				<strong class="info-line">Diameter:</strong> {{
+				planet.diameter }}
+			</p>
+			<p class="info-text">
+				<strong class="info-line">Rotation Period:</strong>
+				{{ planet.rotation_period }}
+			</p>
+			<p class="info-text">
+				<strong class="info-line">Orbital Period:</strong>
+				{{ planet.orbital_period }}
+			</p>
+			<p class="info-text">
+				<strong class="info-line">Gravity:</strong> {{
+				planet.gravity }}
+			</p>
+
+			<p class="info-text">
+				<strong class="info-line">Population:</strong> {{
+				planet.population }}
+			</p>
+			<p class="info-text">
+				<strong class="info-line">Climate:</strong> {{
+				planet.climate }}
+			</p>
+			<p class="info-text">
+				<strong class="info-line">Terrain:</strong> {{
+				planet.terrain }}
+			</p>
+			<p class="info-text">
+				<strong class="info-line">Surface Water:</strong>
+				{{ planet.surface_water }}
+			</p>
+		</div>
+
+		{%if planet.residents %}
+		<hr />
+		<div>
+			<p class="detail-list-title">Residents:</p>
+			<ul class="list-group">
+				{% for resident in planet.residents %}
+				<li>
+					<a
+						class="list-item"
+						href="{{ url_for('person_detail', person_id=resident.id) }}"
+						>{{ resident.name }}</a
+					>
+				</li>
+				{% endfor %}
+			</ul>
+		</div>
+		{% endif %} {% if planet.films %}
+		<hr />
+		<div>
+			<p class="detail-list-title">Films Appeared:</p>
+			<ul class="list-group">
+				{% for film in planet.films %}
+				<li>
+					<a
+						class="list-item"
+						href="{{ url_for('film_detail', film_id=film.id) }}"
+						>{{ film.title }}</a
+					>
+				</li>
+				{% endfor %}
+			</ul>
+		</div>
+		{% endif %}
+	</div>
+
+	{% if g.user %}
+	<hr class="break" />
+	<div class="comment-form-container">
+		<form
+			method="POST"
+			action="{{ url_for('planet_detail', planet_id=planet.id) }}"
+		>
+			{{ form.hidden_tag() }}
+			<div class="mb-3">
+				{{ form.text.label(class="form-label
+				comment-form-label") }} {{
+				form.text(class="comment-input") }}
+			</div>
+			<div class="mb-3">
+				{{ form.submit(class="submit-form-btn" ) }}
+			</div>
+		</form>
+	</div>
+	{% endif %}
+</div>
+
+{% if planet.comments %}
+<div class="comment-container">
+	<div class="row row-cols-1 row-cols-md-3 g-4">
+		{% for comment in planet.comments %}
+		<div class="col comment-item">
+			<div class="card h-100 comment-card-body">
+				<div class="card-body">
+					<div class="comment-content">
+						<div class="vote-container">
+							<form
+								action="{{ url_for('vote_comment', comment_id=comment.id) }}"
+								method="POST"
+								class="vote-form"
+							>
+								<button
+									name="vote"
+									value="up"
+									type="submit"
+									class="vote-button"
+								>
+									<i class="fa-solid fa-sort-up arrow"></i>
+								</button>
+								<button
+									name="vote"
+									value="down"
+									type="submit"
+									class="vote-button"
+								>
+									<i
+										class="fa-solid fa-sort-down arrow"
+									></i>
+								</button>
+							</form>
+						</div>
+
+						<div class="comment-text-container">
+							<h5 class="card-title comment-username">
+								{{ comment.user.username }}:
+							</h5>
+							<p class="card-text comment-text">
+								{{ comment.text }}
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+</div>
+{% endif %} {% endblock %}
