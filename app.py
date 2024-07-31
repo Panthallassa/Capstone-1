@@ -29,7 +29,7 @@ connect_db(app)
 with app.app_context():
     # db.drop_all()
     db.create_all()
-    # fetch_all_data()
+    fetch_all_data()
 
 
 def login_required(f):

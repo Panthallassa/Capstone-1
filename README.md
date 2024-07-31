@@ -1,5 +1,7 @@
 # Star Wars Flask Application
 
+Deployed on Render at: https://capstone-starwars.onrender.com
+
 ## Overview
 
 This is a Flask-based web application that utilizes data from the SWAPI - the Star Wars API (link at bottom of the page). The application provides various features such as user registration, login, profile management, and commenting on different Star Wars elements including characters, films, starships, vehicles, species, and planets. The application also allows users to upvote and downvote comments.
