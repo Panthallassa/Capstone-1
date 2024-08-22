@@ -75,6 +75,21 @@ class UserRouteTests(unittest.TestCase):
 
             self.assertEqual(response.status_code, 302)
 
+    def test_unauthorized_user_profile_access(self):
+        """Test that a user cannot access another user's profile"""
+        with self.client as client:
+
+            client.post('/login', data={
+                'username': 'testuser',
+                'password': 'password'
+            })
+
+
+            response = client.get('/profile/2', follow_redirects=True)
+
+            self.assertEqual(response.status_code, 200) 
+            self.assertIn(b'You do not have permission to view this profile.', response.data)
+
     def test_edit_user(self):
         """Test user edit"""
         with self.client as client:
@@ -88,6 +103,21 @@ class UserRouteTests(unittest.TestCase):
                 'new_password': 'newpassword'
             }, follow_redirects=True)
 
+            self.assertEqual(response.status_code, 200)
+
+    def test_edit_user_duplicate_username(self):
+        """Test editing a user with a duplicate username"""
+        with self.client as client:
+            with client.session_transaction() as session:
+                session['user_id'] = 1  
+
+            response = client.post('/edit/1', data={
+                'username': 'anotheruser',  
+                'email': 'testuser@example.com',
+                'password': 'password'
+            }, follow_redirects=True)
+
+            self.assertIn(b'Username already exists. Please choose a different one.', response.data)
             self.assertEqual(response.status_code, 200)
 
     def test_delete_user(self):

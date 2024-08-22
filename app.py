@@ -29,7 +29,7 @@ connect_db(app)
 with app.app_context():
     # db.drop_all()
     db.create_all()
-    fetch_all_data()
+    # fetch_all_data()
 
 
 def login_required(f):
@@ -134,6 +134,10 @@ def logout():
 @login_required
 def user_profile(user_id):
     """Show user profile"""
+    if g.user.id != user_id:
+        flash('You do not have permission to view this profile', 'danger')
+        return redirect(url_for('user_profile', user_id=g.user.id))
+
     user = User.query.get_or_404(user_id)
     comments_with_associations = []
 
@@ -168,6 +172,10 @@ def edit_user(user_id):
     if form.validate_on_submit():
         if not bcrypt.check_password_hash(user.password, form.password.data):
             flash('Incorrect current password. Changes not saved.', 'danger')
+            return redirect(url_for('edit_user', user_id=user.id))
+        # Check if new username already exists
+        if User.query.filter_by(username=form.username.data).first() and form.username.data != user.username:
+            flash('Username already exists. Please choose a differene one.', 'danger')
             return redirect(url_for('edit_user', user_id=user.id))
 
         user.username = form.username.data
